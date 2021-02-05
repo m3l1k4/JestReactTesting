@@ -1,10 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { getQueriesForElement } from "@testing-library/dom";
-import {render, fireEvent} from "@testing-library/react";
+import {render, fireEvent, waitFor} from "@testing-library/react";
 
 //github.com/testing-library/user-event
 import { App } from "./App";
+
+
+// jest.mock("./api");
 
 import {api} from "./api";
 
@@ -36,14 +39,32 @@ test(" renders the correct content", () => {
 
 });
 
-//testing user interaction
-test ("allows users to add items to their list", () => {
+// //testing user interaction
+// test ("allows users to add items to their list", () => {
+//     const { getByText, getByLabelText } = render(<App />);
+//     const input = getByLabelText("What needs to be done?");
+//     fireEvent.change(input, {target:{value:"RTL"}})
+//     fireEvent.click(getByText("Add #1"));
+
+//     expect(getByText("RTL")).not.toBeNull();
+//     expect(getByText("Add #2")).not.toBeNull();
+
+// })
+
+
+//testing user interaction with async and mock
+test ("allows users to add items to their list", async() => {
+    
+    const todoText = "RTL"
+    mockCreateItem.mockResolvedValueOnce({ id: 123, text: todoText})
     const { getByText, getByLabelText } = render(<App />);
+    
     const input = getByLabelText("What needs to be done?");
-    fireEvent.change(input, {target:{value:"RTL"}})
+    fireEvent.change(input, {target:{value:todoText}})
     fireEvent.click(getByText("Add #1"));
 
-    expect(getByText("RTL")).not.toBeNull();
-    expect(getByText("Add #2")).not.toBeNull();
+    await waitFor(() => getByText(todoText));
+    // expect(getByText("RTL")).not.toBeNull();
+    // expect(getByText("Add #2")).not.toBeNull();
 
 })
