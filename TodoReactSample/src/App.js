@@ -1,6 +1,8 @@
 import React from "react";
 import "./styles.css";
 
+import { api } from "./api";
+
 export const App = () => {
   const [items, setItems] = React.useState([]);
   const [text, setText] = React.useState("");
@@ -19,8 +21,14 @@ export const App = () => {
       id: Date.now()
     };
 
-    setText("");
-    setItems(items.concat(newItem));
+    // setText("");
+    // setItems(items.concat(newItem));
+
+    // *** NEW ***
+    api.createItem("/items", newItem).then((persistedItem) => {
+      setText("");
+      setItems(items.concat(persistedItem));
+    });
   };
 
   return (
