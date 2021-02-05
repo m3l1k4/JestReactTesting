@@ -64,9 +64,17 @@ test ("allows users to add items to their list", async() => {
     fireEvent.click(getByText("Add #1"));
 
     await waitFor(() => {
-        expect(getByText("RTL")).not.toBeNull();
+        expect(getByText(todoText));
       });
     // expect(getByText("RTL")).not.toBeNull();
     // expect(getByText("Add #2")).not.toBeNull();
+
+    // make assertion to see mock was actually hit
+    expect(mockCreateItem).toHaveBeenCalledTimes(1);
+    //assert that it was hit with the correct value
+    expect(mockCreateItem).toHaveBeenCalledWith(
+        "/items",
+        expect.objectContaining({text: todoText})
+    );
 
 }) 
