@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { getQueriesForElement } from "@testing-library/dom";
-import {render} from "@testing-library/react";
+import {render, fireEvent} from "@testing-library/react";
 import { App } from "./App";
 
 
@@ -29,3 +29,15 @@ test(" renders the correct content", () => {
 
 
 });
+
+
+test ("allows users to add items to their list", () => {
+    const { getByText, getByLabelText } = render(<App />);
+    const input = getByLabelText("What needs to be done?");
+    fireEvent.change(input, {target:{value:"RTL"}})
+    fireEvent.click(getByText("Add #1"));
+
+    expect(getByText("RTL")).not.toBeNull();
+    expect(getByText("Add #2")).not.toBeNull();
+
+})
