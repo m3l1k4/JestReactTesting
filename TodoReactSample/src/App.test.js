@@ -63,8 +63,10 @@ test ("allows users to add items to their list", async() => {
     fireEvent.change(input, {target:{value:todoText}})
     fireEvent.click(getByText("Add #1"));
 
-    await waitFor(() => getByText(todoText));
+    await waitFor(() => {
+        expect(getByText("RTL")).not.toBeNull();
+      });
     // expect(getByText("RTL")).not.toBeNull();
     // expect(getByText("Add #2")).not.toBeNull();
 
-})
+}) 
