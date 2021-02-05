@@ -2,7 +2,13 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { getQueriesForElement } from "@testing-library/dom";
 import {render, fireEvent} from "@testing-library/react";
+
+//github.com/testing-library/user-event
 import { App } from "./App";
+
+import {api} from "./api";
+
+const mockCreateItem = (api.createItem = jest.fn());
 
 
 // const render = () => {
@@ -30,7 +36,7 @@ test(" renders the correct content", () => {
 
 });
 
-
+//testing user interaction
 test ("allows users to add items to their list", () => {
     const { getByText, getByLabelText } = render(<App />);
     const input = getByLabelText("What needs to be done?");
