@@ -1,16 +1,16 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { getQueriesForElement } from "@testing-library/dom";
-// import {render} from "@testing-library/react";
+import {render} from "@testing-library/react";
 import { App } from "./App";
 
 
-const render = () => {
-    const root = document.createElement("div");
-    ReactDOM.render(<App />, root);
-    return getQueriesForElement(root);
+// const render = () => {
+//     const root = document.createElement("div");
+//     ReactDOM.render(<App />, root);
+//     return getQueriesForElement(root);
 
-}
+// }
 
 
 test(" renders the correct content", () => {
